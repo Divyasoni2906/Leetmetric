@@ -1,12 +1,3 @@
-// Check if the browser supports service workers
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker
-            .register("/sw.js")
-            .then(() => console.log("Service Worker registered successfully"))
-            .catch((error) => console.error("Service Worker registration failed:", error));
-    });
-}
 
 document.addEventListener("DOMContentLoaded",function(){
     const usernameInput= document.getElementById("user-input");
