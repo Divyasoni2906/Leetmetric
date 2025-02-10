@@ -30,70 +30,21 @@ document.addEventListener("DOMContentLoaded",function(){
         const isMatching = regex.test(username);
         if(!isMatching) {
             alert("Invalid Username");
-            // statsContainer.style.setProperty("display","none");
         }
         return isMatching;
          
     }
-    
-    // async function fetchUserDetails(username){
-
-    //     try{
-    //         searchButton.textContent = "Searching..";
-    //         searchButton.disabled= true;
-    //         const proxyUrl = 'https://cors-anywhere.herokuapp.com/' ;
-    //         const targetURL='https://leetcode.com/graphql/';
-    //     const myHeaders = new Headers();
-    //     myHeaders.append("Content-Type","aplication/json");
-
-    //     const graphql = JSON.stringify({
-    //         query: "\n    query userSessionProgress($username: String!) {\n  allQuestionsCount {\n    difficulty\n    count\n  }\n  matchedUser(username: $username) {\n    submitStats {\n      acSubmissionNum {\n        difficulty\n        count\n        submissions\n      }\n      totalSubmissionNum {\n        difficulty\n        count\n        submissions\n      }\n    }\n  }\n}\n    ",
-    //             variables: { "username": `${username}` }
-    //     })
-    //     const requestOptions={
-    //         method:"POST",
-    //         headers: myHeaders,
-    //         body: graphql,
-    //         redirect:"follow"
-    //     };
-    //     const response = await withTimeout(
-    //     fetch(proxyUrl+targetURL, requestOptions),
-    //     10000
-    //   );
-    //     if(!response.ok){
-    //         throw new Error("Unable to fetch the User details");
-    //     }
-    //     const data = await response.json();
-    //     console.log("logging data",data);
-    //     }
-    //     catch(error){
-    //         statsContainer.innerHTML = `<p>No data found</p>`
-    //     }
-    //     finally{
-    //         searchButton.textContent="Search";
-    //         searchButton.disabled= false;
-    //     }
-
-    // }
     async function fetchUserDetails(username) {
         try {
           // Validate input
           
           validateUserName(username);
-        //   if (!username || username.trim() === "") {
-        //     statsContainer.innerHTML = `<p>Please enter a valid username.</p>`;
-        //     searchButton.textContent = "Search";
-        //     searchButton.disabled = false;
-        //     return;
-        //   }
-      
-
+  
           // Update button and UI
           statsContainer.style.setProperty("display","none");
           searchButton.textContent = "Searching...";
           searchButton.disabled = true;
-        //   statsContainer.innerHTML = `<p>Loading user data...</p>`;
-      
+    
           // Proxy and target URLs
           const proxyUrl = 'https://cors-anywhere.herokuapp.com/' ;
           const targetURL = 'https://leetcode.com/graphql/';
@@ -151,16 +102,6 @@ document.addEventListener("DOMContentLoaded",function(){
           // Display data
           console.log("logging data",parsedData);
           displayUserData(parsedData);
-        //   const { allQuestionsCount, matchedUser } = data.data;
-        //   if (matchedUser) {
-        //     statsContainer.innerHTML = `
-        //       <p>Easy Questions Solved: ${matchedUser.submitStats.acSubmissionNum[1].count}</p>
-        //       <p>Medium Questions Solved: ${matchedUser.submitStats.acSubmissionNum[2].count}</p>
-        //       <p>Hard Questions Solved: ${matchedUser.submitStats.acSubmissionNum[3].count}</p>
-        //     `;
-        //   } else {
-        //     statsContainer.innerHTML = `<p>No user found for username: ${username}</p>`;
-        //   }
         } catch (error) {
           console.error("Error fetching data:", error);
           statsContainer.innerHTML = `<p>${error.message || "An unexpected error occurred"}</p>`;
